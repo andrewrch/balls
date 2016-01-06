@@ -1,6 +1,7 @@
 #include "surface.h"
 #include <iostream>
 #include <algorithm>
+#include <numeric>
 
 namespace surface {
   Surface::Surface(unsigned int rows, unsigned int cols) :
@@ -12,10 +13,10 @@ namespace surface {
         float t = static_cast<float>(col) / cols;
         float x = static_cast<float>(row * 2) / rows - 1;
         float z = static_cast<float>(col * 2) / cols - 1;
-        vertices.push_back(Vertex{ .pos = glm::vec3(x, 0.0f, z),
-                                   .colour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-                                   .tex_coord = glm::vec2(s, t),
-                                   .normal = glm::vec3(0.0f, 1.0f, 0.0f) });
+        vertices.push_back(Vertex{ glm::vec3(x, 0.0f, z),
+                                   glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
+                                   glm::vec2(s, t),
+                                   glm::vec3(0.0f, 1.0f, 0.0f) });
       }
     }
     // And indices
@@ -74,7 +75,7 @@ namespace surface {
             normals.push_back(calcNormal(v, b, c));
           }
         }
-        glm::vec3 tot = std::accumulate(normals.begin(), normals.end(), glm::vec3(0.0));
+        glm::vec3 tot = std::accumulate(normals.begin(), normals.end(), glm::vec3(0.0f));
         vertices[getVertex(row, col)].normal = - tot / static_cast<float>(normals.size());
       }
     }

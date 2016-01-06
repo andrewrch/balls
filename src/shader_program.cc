@@ -14,9 +14,10 @@ ShaderProgram::ShaderProgram(const std::vector<Shader>& shaders) {
   if (status == GL_FALSE) {
     GLint len;
     glGetProgramiv (id, GL_INFO_LOG_LENGTH, &len);
-    GLchar info_log[len];
-    glGetProgramInfoLog (id, len, NULL, info_log);
-    fprintf(stderr, "Shader link failure\n%s", info_log);
+	std::vector<GLchar> info_log;
+	info_log.resize(len);
+    glGetProgramInfoLog (id, len, NULL, info_log.data());
+    fprintf(stderr, "Shader link failure\n%s", info_log.data());
   }
 
   for (auto& shader : shaders) {

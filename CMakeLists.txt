@@ -6,14 +6,21 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 find_package(OpenGL REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(GLEW REQUIRED)
-find_package(PkgConfig REQUIRED)
-pkg_search_module(GLFW REQUIRED glfw3)
+#find_package(PkgConfig REQUIRED)
+find_package(GLFW REQUIRED)
+set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost 1.54.0 COMPONENTS program_options
                                      serialization
                                      filesystem
                                      system)
 
 add_subdirectory(src)
+add_definitions( -DBOOST_ALL_NO_LIB )
+
+
+link_directories(
+	"$ENV{PROGRAMFILES}/Boost/lib"
+)
 
 add_executable(balls
   ${SURFACE_SRC}
@@ -21,15 +28,18 @@ add_executable(balls
 
 target_link_libraries(balls
   ${Boost_LIBRARIES}
-  ${OpenGL_LIBRARIES}
+  ${OPENGL_LIBRARIES}
   ${GLEW_LIBRARIES}
-  ${GLFW_STATIC_LIBRARIES}
+  ${GLFW_LIBRARIES}
   ${OpenCV_LIBRARIES}
   )
 
 include_directories(
   "include"
-  ${GLFW_INCLUDE_DIRS}
+  "$ENV{PROGRAMFILES}/glm/include"
+  ${GLEW_INCLUDE_DIRS}
+  ${OPENGL_INCLUDE_DIR}
+  ${GLFW_INCLUDE_DIR}
   ${Boost_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
   )

@@ -29,11 +29,12 @@ void Shader::add_source_from_file(const std::string& filename) {
 }
 
 void Shader::compile() const {
-  const char* source_text[shader_source.size()];
+  std::vector<const char*> source_text;
+  source_text.resize(shader_source.size());
   for (unsigned int i = 0; i < shader_source.size(); i++) {
     source_text[i] = shader_source[i].c_str();
   }
-  glShaderSource(id, shader_source.size(), source_text, nullptr);
+  glShaderSource(id, shader_source.size(), source_text.data(), nullptr);
   //check whether the shader loads fine
   GLint status;
   glCompileShader(id);
@@ -41,11 +42,12 @@ void Shader::compile() const {
   if (status == GL_FALSE) {
     GLint infoLogLength;
     glGetShaderiv(id, GL_INFO_LOG_LENGTH, &infoLogLength);
-    GLchar infoLog[infoLogLength];
-    glGetShaderInfoLog (id, infoLogLength, NULL, infoLog);
+	std::vector<GLchar> infoLog;
+	infoLog.resize(infoLogLength);
+    glGetShaderInfoLog (id, infoLogLength, NULL, infoLog.data());
     std::stringstream err;
     err << "Shader compilation failure" << std::endl;
-    err << infoLog << std::endl;
+    err << infoLog.data() << std::endl;
     throw std::runtime_error(err.str());
   }
 }

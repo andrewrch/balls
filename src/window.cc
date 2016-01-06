@@ -10,13 +10,13 @@ Window::Window(const Options& options) :
     throw std::runtime_error("Could not initialise GLFW\n");
   }
 
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   auto windowSize = options.getWindowSize();
   window = glfwCreateWindow(windowSize.x,
                             windowSize.y,
-                            "OpenGL Window", NULL, NULL);
+							  "OpenGL Window", NULL, NULL);
   width = windowSize.x, height = windowSize.y;
   if (!window) {
     throw std::runtime_error("Could not initialise GLFW window\n");
@@ -39,7 +39,7 @@ Window::Window(const Options& options) :
   };
   glfwSetKeyCallback(window, keyboard);
 
-  auto resize = [&](GLFWwindow* w, int width, int height) {
+  auto resize = [](GLFWwindow* w, int width, int height) {
     static_cast<Window*>(glfwGetWindowUserPointer(w))->resize(width, height);
   };
   glfwSetWindowSizeCallback(window, resize);

@@ -3,6 +3,8 @@
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
+#define M_PI 3.14
+
 namespace surface {
 
 Camera::Camera(const glm::vec3& eye, const glm::vec3& up) :

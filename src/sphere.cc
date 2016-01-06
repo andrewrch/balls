@@ -1,4 +1,5 @@
 #include <assert.h>
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <iostream>
 #include <stdlib.h>
@@ -21,10 +22,10 @@ void Sphere::init(double radius, unsigned int rings, unsigned int slices) {
       float const y = sin( -M_PI_2 + M_PI * r * R );
       float const x = cos(2*M_PI * s * S) * sin( M_PI * r * R );
       float const z = sin(2*M_PI * s * S) * sin( M_PI * r * R );
-      vertices.push_back(Vertex{ .pos = glm::vec3(x * radius, y * radius, z * radius),
-                                 .colour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-                                 .tex_coord = glm::vec2(s * S, r * R),
-                                 .normal = glm::vec3(x, y, z) });
+      vertices.push_back(Vertex{ glm::vec3(x * radius, y * radius, z * radius),
+                                 glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
+                                 glm::vec2(s * S, r * R),
+                                 glm::vec3(x, y, z) });
     }
   }
 

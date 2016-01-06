@@ -25,8 +25,8 @@ namespace surface {
   {
     float ratio = static_cast<float>(window.getWidth()) / window.getHeight();
     cameraProj = glm::perspective(45.0f, ratio, 0.1f, 10000.0f);
-    ballTexture.setImage("/home/andrew/code/balls/images/ball.jpg");
-    surfaceTexture.setImage("/home/andrew/code/balls/images/grass.jpg");
+    ballTexture.setImage("images/ball.jpg");
+    surfaceTexture.setImage("images/grass.jpg");
   }
 
   void SurfaceApp::drawLight() {

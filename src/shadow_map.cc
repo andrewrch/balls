@@ -3,6 +3,9 @@
 //#define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
+#define M_PI 3.14
+
+
 namespace surface {
 
 void initUpDirections(glm::vec3 up_directions[6]) {
@@ -62,8 +65,8 @@ ShadowMap::ShadowMap(int width, int height,
                      const glm::vec3& lightPos) :
   width(width),
   height(height),
-  shader({ Shader("/home/andrew/code/surface/shaders/shadow.glslv", ShaderType::VERT),
-           Shader("/home/andrew/code/surface/shaders/shadow.glslf", ShaderType::FRAG)}),
+  shader({ Shader("shaders/shadow.glslv", ShaderType::VERT),
+           Shader("shaders/shadow.glslf", ShaderType::FRAG)}),
   lightPos(lightPos)
 {
   // Generate the framebuffer
